@@ -1,18 +1,14 @@
 # Navchai+
 
 <p align="center">
-<img src="docs/logo.png" width="180">
+  <img src="docs/branding/logo.png" width="180" alt="Navchai+ Logo">
 </p>
 
-<h1 align="center">
-Navchai+
-</h1>
+<h1 align="center">Navchai+</h1>
 
 <p align="center">
-<b>Сучасна LMS-платформа для навчання, тестування та сертифікації працівників організацій</b>
+Сучасна LMS-платформа для навчання, тестування та сертифікації працівників
 </p>
-
-<p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 
