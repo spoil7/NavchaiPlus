@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Організації
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>🏢 Організації</h1>
+
+        <p>
+            Управління організаціями системи Navchai+
+        </p>
+
+    </div>
+
+ <a
+href="{% url 'organizations:create' %}"
+class="primary-btn">
+
+<i class="bi bi-plus-circle"></i>
+
+Додати організацію
+
+</a>
+
+</div>
+
+
+<div class="search-box">
+
+    <input
+        type="text"
+        placeholder="Пошук організації..."
+    >
+
+</div>
+
+
+<div class="organization-grid">
+
+{% for organization in organizations %}
+
+<div class="organization-card">
+
+    <div class="organization-logo">
+
+        🏥
+
+    </div>
+
+    <h3>
+
+        {{ organization.name }}
+
+    </h3>
+
+    <p>
+
+        {{ organization.city }}
+
+    </p>
+
+    <div class="organization-info">
+
+        <span>
+
+            {{ organization.phone }}
+
+        </span>
+
+    </div>
+
+    <div class="status">
+
+        {% if organization.is_active %}
+
+            <span class="active">
+
+                ● Активна
+
+            </span>
+
+        {% else %}
+
+            <span class="inactive">
+
+                ● Неактивна
+
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    <a
+href="{% url 'organizations:detail' organization.id %}"
+class="primary-btn">
+
+Відкрити
+
+</a>
+
+</div>
+
+{% empty %}
+
+<div class="empty-state">
+
+    <h2>
+
+        Поки що немає жодної організації
+
+    </h2>
+
+    <p>
+
+        Натисніть "Додати організацію"
+
+    </p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

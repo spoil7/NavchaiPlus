@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ organization.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+
+            🏥 {{ organization.name }}
+
+        </h1>
+
+        <p>
+
+            Детальна інформація про організацію
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="organization-detail">
+
+    <div class="detail-card">
+
+        <h3>Основна інформація</h3>
+
+        <table class="info-table">
+
+            <tr>
+
+                <td>ЄДРПОУ</td>
+
+                <td>{{ organization.edrpou }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Місто</td>
+
+                <td>{{ organization.city }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Адреса</td>
+
+                <td>{{ organization.address }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Email</td>
+
+                <td>{{ organization.email }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Телефон</td>
+
+                <td>{{ organization.phone }}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="detail-card">
+
+        <h3>Статистика</h3>
+
+        <div class="stat-box">
+
+            <h2>0</h2>
+
+            <p>Працівників</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2>0</h2>
+
+            <p>Курсів</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2>0</h2>
+
+            <p>Тестів</p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <h2>0</h2>
+
+            <p>Сертифікатів</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
