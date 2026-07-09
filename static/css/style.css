@@ -3,7 +3,7 @@
 @import url("layout.css");
 @import url("sidebar.css");
 @import url("topbar.css");
-
+@import url("components/toolbar.css");
 @import url("components/nc-button.css");
 @import url("components/nc-card.css");
 @import url("components/nc-input.css");

@@ -1,0 +1,33 @@
+/* ==========================================
+   Navchai Toolbar
+========================================== */
+
+.page-toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:24px;
+
+    margin-bottom:30px;
+
+}
+
+.toolbar-left{
+
+    flex:1;
+
+}
+
+.toolbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}

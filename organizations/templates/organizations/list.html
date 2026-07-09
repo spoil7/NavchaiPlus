@@ -18,34 +18,65 @@
 
     </div>
 
- <a
-href="{% url 'organizations:create' %}"
-class="primary-btn">
+    <a href="{% url 'organizations:create' %}"
+       class="nc-btn nc-btn-primary">
 
-<i class="bi bi-plus-circle"></i>
+        <i class="bi bi-plus-lg"></i>
 
-Додати організацію
+        Додати організацію
 
-</a>
-
-</div>
-
-
-<div class="search-box">
-
-    <input
-        type="text"
-        placeholder="Пошук організації..."
-    >
+    </a>
 
 </div>
 
 
-<div class="organization-grid">
+<div class="page-toolbar">
+
+    <div class="toolbar-left">
+
+        <div class="nc-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                placeholder="Пошук організації..."
+            >
+
+        </div>
+
+    </div>
+
+    <div class="toolbar-right">
+
+        <button class="nc-btn nc-btn-secondary">
+
+            <i class="bi bi-funnel"></i>
+
+            Фільтр
+
+        </button>
+
+        <button class="nc-btn nc-btn-secondary">
+
+            <i class="bi bi-arrow-down-up"></i>
+
+            Сортування
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="row g-4">
 
 {% for organization in organizations %}
 
-<div class="organization-card">
+<div class="col-lg-4 col-md-6">
+
+    <div class="nc-card">
 
     <div class="organization-logo">
 
@@ -97,13 +128,14 @@ class="primary-btn">
 
     </div>
 
-    <a
-href="{% url 'organizations:detail' organization.id %}"
-class="primary-btn">
+    <a href="{% url 'organizations:detail' organization.id %}"
+       class="nc-btn nc-btn-primary">
 
-Відкрити
+        <i class="bi bi-box-arrow-up-right"></i>
 
-</a>
+        Відкрити
+
+    </a>
 
 </div>
 
@@ -111,17 +143,28 @@ class="primary-btn">
 
 <div class="empty-state">
 
+    <i class="bi bi-building"></i>
+
     <h2>
 
-        Поки що немає жодної організації
+        Організації відсутні
 
     </h2>
 
     <p>
 
-        Натисніть "Додати організацію"
+        Створіть першу організацію для початку роботи.
 
     </p>
+
+    <a href="{% url 'organizations:create' %}"
+       class="nc-btn nc-btn-primary">
+
+        <i class="bi bi-plus-lg"></i>
+
+        Додати організацію
+
+    </a>
 
 </div>
 

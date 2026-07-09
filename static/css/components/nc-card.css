@@ -1,0 +1,27 @@
+/* ===========================
+   Navchai Card
+=========================== */
+
+.nc-card{
+
+    background:#fff;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    transition:.25s;
+
+    box-shadow:0 6px 20px rgba(15,23,42,.04);
+
+}
+
+.nc-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 14px 30px rgba(15,23,42,.08);
+
+}
