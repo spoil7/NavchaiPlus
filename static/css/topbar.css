@@ -1,0 +1,196 @@
+.topbar{
+
+    height:72px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #E5E7EB;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 32px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+/* ==========================
+   SEARCH
+========================== */
+
+.search-box{
+
+    width:380px;
+
+    height:46px;
+
+    background:#F8FAFC;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 16px;
+
+    gap:12px;
+
+    transition:.2s;
+
+}
+
+.search-box:hover{
+
+    border-color:#CBD5E1;
+
+}
+
+.search-box:focus-within{
+
+    border-color:#2563EB;
+
+    background:white;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.08);
+
+}
+
+.search-box i{
+
+    color:#64748B;
+
+    font-size:18px;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    width:100%;
+
+    background:transparent;
+
+    font-size:15px;
+
+}
+/* ==========================
+   ICON BUTTONS
+========================== */
+
+.icon-btn{
+
+    width:44px;
+
+    height:44px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:white;
+
+    border:1px solid #E2E8F0;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.icon-btn:hover{
+
+    background:#F8FAFC;
+
+    border-color:#CBD5E1;
+
+}
+
+.icon-btn i{
+
+    font-size:18px;
+
+}
+/* ==========================
+   USER
+========================== */
+
+.user-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-left:10px;
+
+}
+
+.avatar{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    background:#2563EB;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+}
+
+.user-name{
+
+    font-weight:600;
+
+    color:#0F172A;
+
+}
+
+.user-role{
+
+    font-size:13px;
+
+    color:#64748B;
+
+}
