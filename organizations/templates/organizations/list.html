@@ -78,95 +78,171 @@
 </div>
 
 
+<!-- ======= Статистика ======= -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            <i class="bi bi-building"></i>
+        </div>
+
+        <div class="stat-number">
+            {{ organizations|length }}
+        </div>
+
+        <div class="stat-title">
+            Організацій
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon orange">
+            <i class="bi bi-people"></i>
+        </div>
+
+        <div class="stat-number">
+            0
+        </div>
+
+        <div class="stat-title">
+            Працівників
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            <i class="bi bi-journal-bookmark"></i>
+        </div>
+
+        <div class="stat-number">
+            0
+        </div>
+
+        <div class="stat-title">
+            Курсів
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon purple">
+            <i class="bi bi-patch-check"></i>
+        </div>
+
+        <div class="stat-number">
+            {{ organizations|length }}
+        </div>
+
+        <div class="stat-title">
+            Активних
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ======= Организации ======= -->
+
 <div class="row g-4">
 
 {% for organization in organizations %}
 
-<div class="col-lg-4 col-md-6">
+<div class="col-xl-3 col-lg-4 col-md-6">
 
-    <div class="nc-card">
+    <div class="nc-card organization-card">
 
-    <div class="organization-logo">
+        <div class="organization-logo">
 
-        🏥
+            🏥
 
-    </div>
+        </div>
 
-    <h3>
+        <h3>
 
-        {{ organization.name }}
+            {{ organization.name }}
 
-    </h3>
+        </h3>
 
-    <p>
+        <p>
 
-        {{ organization.city }}
+            <i class="bi bi-geo-alt"></i>
 
-    </p>
+            {{ organization.city }}
 
-    <div class="organization-info">
+        </p>
 
-        <span>
+        <div class="organization-info">
 
-            {{ organization.phone }}
+            <span>
 
-        </span>
+                <i class="bi bi-telephone"></i>
 
-    </div>
+                {{ organization.phone }}
 
-    <div class="status">
+            </span>
 
-        {% if organization.is_active %}
+        </div>
 
-           <span class="nc-badge nc-badge-success">
+        <div class="status">
 
-<i class="bi bi-check-circle-fill"></i>
+            {% if organization.is_active %}
 
-Активна
+            <span class="nc-badge nc-badge-success">
 
-</span>
+                <i class="bi bi-check-circle-fill"></i>
 
-        {% else %}
+                Активна
+
+            </span>
+
+            {% else %}
 
             <span class="nc-badge nc-badge-danger">
 
-<i class="bi bi-x-circle-fill"></i>
+                <i class="bi bi-x-circle-fill"></i>
 
-Неактивна
+                Неактивна
 
-</span>
+            </span>
 
-        {% endif %}
+            {% endif %}
+
+        </div>
+
+        <a href="{% url 'organizations:detail' organization.id %}"
+           class="nc-btn nc-btn-primary w-100 mt-3">
+
+            <i class="bi bi-box-arrow-up-right"></i>
+
+            Відкрити
+
+        </a>
 
     </div>
-
-    <a href="{% url 'organizations:detail' organization.id %}"
-       class="nc-btn nc-btn-primary">
-
-        <i class="bi bi-box-arrow-up-right"></i>
-
-        Відкрити
-
-    </a>
 
 </div>
 
 {% empty %}
 
-<div class="empty-state">
+<div class="col-12">
 
-    <i class="bi bi-building"></i>
+    <div class="empty-state">
 
-    <h2>
+    <div class="empty-icon">
+        <i class="bi bi-building"></i>
+    </div>
 
-        Організації відсутні
-
-    </h2>
+    <h2>Організації відсутні</h2>
 
     <p>
-
         Створіть першу організацію для початку роботи.
-
     </p>
 
     <a href="{% url 'organizations:create' %}"
@@ -177,6 +253,8 @@
         Додати організацію
 
     </a>
+
+</div>
 
 </div>
 

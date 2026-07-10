@@ -1,0 +1,127 @@
+/* ===========================================
+   Navchai UI - Stats Cards
+=========================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+    margin:32px 0;
+
+}
+
+.stat-card{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
+
+    transition:.25s ease;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 16px 36px rgba(15,23,42,.10);
+
+}
+
+.stat-icon{
+
+    width:54px;
+
+    height:54px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:22px;
+
+    margin-bottom:18px;
+
+}
+
+.stat-icon.blue{
+
+    background:#2F6FED;
+
+}
+
+.stat-icon.orange{
+
+    background:#F59E0B;
+
+}
+
+.stat-icon.green{
+
+    background:#10B981;
+
+}
+
+.stat-icon.purple{
+
+    background:#8B5CF6;
+
+}
+
+.stat-number{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    margin-bottom:8px;
+
+    color:#111827;
+
+}
+
+.stat-title{
+
+    font-size:15px;
+
+    color:#6B7280;
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:1200px){
+
+    .stats-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

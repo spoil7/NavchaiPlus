@@ -1,0 +1,19 @@
+.organization-card{
+    padding:24px;
+    border-radius:20px;
+}
+
+.organization-logo{
+    width:56px;
+    height:56px;
+    font-size:26px;
+}
+
+.organization-card h3{
+    font-size:28px;
+    margin-top:14px;
+}
+
+.organization-card p{
+    margin-bottom:8px;
+}

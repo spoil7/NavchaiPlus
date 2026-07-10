@@ -1,0 +1,54 @@
+.organization-card{
+    padding:24px;
+    border-radius:20px;
+    transition:.25s;
+}
+
+.organization-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(0,0,0,.08);
+}
+
+.organization-logo{
+    width:56px;
+    height:56px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:26px;
+
+    background:#f3f7ff;
+
+    margin-bottom:18px;
+}
+
+.organization-card h3{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.organization-card p{
+    margin-bottom:8px;
+    color:#64748b;
+}
+
+.organization-info{
+    margin-top:10px;
+    margin-bottom:12px;
+}
+
+.organization-info span{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#475569;
+}
+
+.status{
+    margin:14px 0;
+}
