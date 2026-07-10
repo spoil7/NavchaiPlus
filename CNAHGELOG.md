@@ -3,17 +3,18 @@
 ## v0.2.0
 
 ### Added
-- Organizations module
-- Organization detail page
-- Sidebar navigation
-- Navchai UI foundation
 
-### Changed
-- Modern Dashboard
-- CSS architecture
-- README
+- Dashboard
+- Organizations
+- Navchai UI
+- Sidebar
+- Topbar
+- Search
+- Stats
+- Empty State
 
-### Fixed
-- Static files loading
-- Sidebar rendering
-- Layout issues
+---
+
+## v0.1.0
+
+Initial project structure.
