@@ -8,18 +8,26 @@
 
 <div class="page-header">
 
-    <div>
+    <div class="page-header-left">
 
-        <h1>🏢 Організації</h1>
+        <div class="page-header-icon">
+            <i class="bi bi-building"></i>
+        </div>
 
-        <p>
-            Управління організаціями системи Navchai+
-        </p>
+        <div>
+
+            <h1>Організації</h1>
+
+            <p>
+                Управління організаціями системи Navchai+
+            </p>
+
+        </div>
 
     </div>
 
     <a href="{% url 'organizations:create' %}"
-       class="nc-btn nc-btn-primary">
+       class="primary-btn">
 
         <i class="bi bi-plus-lg"></i>
 
@@ -110,19 +118,23 @@
 
         {% if organization.is_active %}
 
-            <span class="active">
+           <span class="nc-badge nc-badge-success">
 
-                ● Активна
+<i class="bi bi-check-circle-fill"></i>
 
-            </span>
+Активна
+
+</span>
 
         {% else %}
 
-            <span class="inactive">
+            <span class="nc-badge nc-badge-danger">
 
-                ● Неактивна
+<i class="bi bi-x-circle-fill"></i>
 
-            </span>
+Неактивна
+
+</span>
 
         {% endif %}
 
