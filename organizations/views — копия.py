@@ -1,37 +1,57 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
+
 from .models import Organization
-from django.shortcuts import redirect
 from .forms import OrganizationForm
-from django.shortcuts import get_object_or_404
+
+
 def organization_create(request):
 
     if request.method == "POST":
-
         form = OrganizationForm(request.POST)
 
         if form.is_valid():
-
             form.save()
-
             return redirect("organizations:list")
 
     else:
-
         form = OrganizationForm()
 
     return render(
         request,
         "organizations/create.html",
         {
-            "form": form
-        }
+            "form": form,
+        },
     )
+
+
 def organization_list(request):
 
-    organizations = Organization.objects.all().order_by("name")
+    query = request.GET.get("q", "").strip()
+    status = request.GET.get("status", "all")
+
+    organizations = Organization.objects.all()
+
+    if query:
+        organizations = organizations.filter(
+            Q(name__icontains=query)
+            | Q(city__icontains=query)
+            | Q(edrpou__icontains=query)
+        )
+
+    if status == "active":
+        organizations = organizations.filter(is_active=True)
+
+    elif status == "inactive":
+        organizations = organizations.filter(is_active=False)
+
+    organizations = organizations.order_by("name")
 
     context = {
         "organizations": organizations,
+        "query": query,
+        "status": status,
     }
 
     return render(
@@ -39,19 +59,21 @@ def organization_list(request):
         "organizations/list.html",
         context,
     )
+
+
 def organization_detail(request, pk):
 
     organization = get_object_or_404(
         Organization,
-        pk=pk
+        pk=pk,
     )
 
     context = {
-        "organization": organization
+        "organization": organization,
     }
 
     return render(
         request,
         "organizations/detail.html",
-        context
+        context,
     )

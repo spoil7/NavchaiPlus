@@ -30,6 +30,7 @@ def organization_list(request):
 
     query = request.GET.get("q", "").strip()
     status = request.GET.get("status", "all")
+    sort = request.GET.get("sort", "name_asc")
 
     organizations = Organization.objects.all()
 
@@ -46,12 +47,22 @@ def organization_list(request):
     elif status == "inactive":
         organizations = organizations.filter(is_active=False)
 
-    organizations = organizations.order_by("name")
+    sort_options = {
+        "name_asc": "name",
+        "name_desc": "-name",
+        "newest": "-id",
+        "oldest": "id",
+    }
+
+    organizations = organizations.order_by(
+        sort_options.get(sort, "name")
+    )
 
     context = {
         "organizations": organizations,
         "query": query,
         "status": status,
+        "sort": sort,
     }
 
     return render(

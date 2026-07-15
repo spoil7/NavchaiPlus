@@ -16,10 +16,7 @@
 
         <div>
             <h1>Організації</h1>
-
-            <p>
-                Управління організаціями системи Navchai+
-            </p>
+            <p>Управління організаціями системи Navchai+</p>
         </div>
 
     </div>
@@ -28,7 +25,6 @@
        class="primary-btn">
 
         <i class="bi bi-plus-lg"></i>
-
         Додати організацію
 
     </a>
@@ -40,8 +36,7 @@
 
     <div class="toolbar-left">
 
-        <form method="get"
-              class="nc-search">
+        <form method="get" class="nc-search">
 
             <i class="bi bi-search"></i>
 
@@ -52,15 +47,13 @@
                 placeholder="Пошук за назвою, містом або ЄДРПОУ..."
             >
 
-            {% if status and status != "all" %}
+            <input type="hidden"
+                   name="status"
+                   value="{{ status }}">
 
-                <input
-                    type="hidden"
-                    name="status"
-                    value="{{ status }}"
-                >
-
-            {% endif %}
+            <input type="hidden"
+                   name="sort"
+                   value="{{ sort }}">
 
         </form>
 
@@ -69,34 +62,81 @@
 
     <div class="toolbar-right">
 
-        <a href="?q={{ query }}&status=all"
+        <a href="?q={{ query }}&status=all&sort={{ sort }}"
            class="nc-btn nc-btn-secondary">
-
             <i class="bi bi-grid"></i>
-
             Усі
-
         </a>
 
-
-        <a href="?q={{ query }}&status=active"
+        <a href="?q={{ query }}&status=active&sort={{ sort }}"
            class="nc-btn nc-btn-secondary">
-
             <i class="bi bi-check-circle"></i>
-
             Активні
-
         </a>
 
-
-        <a href="?q={{ query }}&status=inactive"
+        <a href="?q={{ query }}&status=inactive&sort={{ sort }}"
            class="nc-btn nc-btn-secondary">
-
             <i class="bi bi-x-circle"></i>
-
             Неактивні
-
         </a>
+
+
+        <div class="dropdown">
+
+            <button
+                class="nc-btn nc-btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+                <i class="bi bi-arrow-down-up"></i>
+                Сортування
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query }}&status={{ status }}&sort=name_asc">
+
+                        Назва А–Я
+
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query }}&status={{ status }}&sort=name_desc">
+
+                        Назва Я–А
+
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query }}&status={{ status }}&sort=newest">
+
+                        Спочатку нові
+
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query }}&status={{ status }}&sort=oldest">
+
+                        Спочатку старі
+
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
 
     </div>
 
@@ -106,7 +146,6 @@
 <div class="stats-grid">
 
     <div class="stat-card">
-
         <div class="stat-icon blue">
             <i class="bi bi-building"></i>
         </div>
@@ -118,46 +157,36 @@
         <div class="stat-title">
             Організацій
         </div>
-
     </div>
 
 
     <div class="stat-card">
-
         <div class="stat-icon orange">
             <i class="bi bi-people"></i>
         </div>
 
-        <div class="stat-number">
-            0
-        </div>
+        <div class="stat-number">0</div>
 
         <div class="stat-title">
             Працівників
         </div>
-
     </div>
 
 
     <div class="stat-card">
-
         <div class="stat-icon green">
             <i class="bi bi-journal-bookmark"></i>
         </div>
 
-        <div class="stat-number">
-            0
-        </div>
+        <div class="stat-number">0</div>
 
         <div class="stat-title">
             Курсів
         </div>
-
     </div>
 
 
     <div class="stat-card">
-
         <div class="stat-icon purple">
             <i class="bi bi-patch-check"></i>
         </div>
@@ -169,7 +198,6 @@
         <div class="stat-title">
             Активних
         </div>
-
     </div>
 
 </div>
@@ -191,24 +219,16 @@
                 {{ organization.name }}
             </h3>
 
-
             <p>
-
                 <i class="bi bi-geo-alt"></i>
-
                 {{ organization.city|default:"Місто не вказано" }}
-
             </p>
-
 
             <div class="organization-info">
 
                 <span>
-
                     <i class="bi bi-telephone"></i>
-
                     {{ organization.phone|default:"Телефон не вказано" }}
-
                 </span>
 
             </div>
@@ -221,7 +241,6 @@
                     <span class="nc-badge nc-badge-success">
 
                         <i class="bi bi-check-circle-fill"></i>
-
                         Активна
 
                     </span>
@@ -231,7 +250,6 @@
                     <span class="nc-badge nc-badge-danger">
 
                         <i class="bi bi-x-circle-fill"></i>
-
                         Неактивна
 
                     </span>
@@ -245,7 +263,6 @@
                class="nc-btn nc-btn-primary w-100 mt-3">
 
                 <i class="bi bi-box-arrow-up-right"></i>
-
                 Відкрити
 
             </a>
@@ -278,9 +295,7 @@
 
             {% if query or status != "all" %}
 
-                <h2>
-                    Організації не знайдено
-                </h2>
+                <h2>Організації не знайдено</h2>
 
                 <p>
                     Спробуйте змінити параметри пошуку або фільтрації.
@@ -290,16 +305,13 @@
                    class="nc-btn nc-btn-secondary">
 
                     <i class="bi bi-arrow-counterclockwise"></i>
-
                     Скинути фільтри
 
                 </a>
 
             {% else %}
 
-                <h2>
-                    Організації відсутні
-                </h2>
+                <h2>Організації відсутні</h2>
 
                 <p>
                     Створіть першу організацію для початку роботи.
@@ -309,7 +321,6 @@
                    class="nc-btn nc-btn-primary">
 
                     <i class="bi bi-plus-lg"></i>
-
                     Додати організацію
 
                 </a>
