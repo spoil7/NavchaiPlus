@@ -88,3 +88,44 @@ def organization_detail(request, pk):
         "organizations/detail.html",
         context,
     )
+
+
+def organization_edit(request, pk):
+
+    organization = get_object_or_404(
+        Organization,
+        pk=pk,
+    )
+
+    if request.method == "POST":
+
+        form = OrganizationForm(
+            request.POST,
+            instance=organization,
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect(
+                "organizations:detail",
+                pk=organization.pk,
+            )
+
+    else:
+
+        form = OrganizationForm(
+            instance=organization,
+        )
+
+    context = {
+        "organization": organization,
+        "form": form,
+    }
+
+    return render(
+        request,
+        "organizations/edit.html",
+        context,
+    )

@@ -8,110 +8,183 @@
 
 <div class="page-header">
 
-    <div>
+    <div class="page-header-left">
 
-        <h1>
+        <div class="page-header-icon">
+            <i class="bi bi-building"></i>
+        </div>
 
-            🏥 {{ organization.name }}
+        <div>
+            <h1>{{ organization.name }}</h1>
 
-        </h1>
+            <p>
+                Детальна інформація про організацію
+            </p>
+        </div>
 
-        <p>
+    </div>
 
-            Детальна інформація про організацію
+    <div class="d-flex gap-2">
 
-        </p>
+        <a href="{% url 'organizations:list' %}"
+           class="nc-btn nc-btn-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+            До списку
+
+        </a>
+
+        <a href="{% url 'organizations:edit' organization.pk %}"
+           class="nc-btn nc-btn-primary">
+
+            <i class="bi bi-pencil-square"></i>
+            Редагувати
+
+        </a>
 
     </div>
 
 </div>
 
 
-<div class="organization-detail">
+<div class="row g-4">
 
-    <div class="detail-card">
+    <div class="col-lg-8">
 
-        <h3>Основна інформація</h3>
+        <div class="nc-card">
 
-        <table class="info-table">
+            <h3 class="mb-4">
+                Основна інформація
+            </h3>
 
-            <tr>
+            <div class="organization-detail-list">
 
-                <td>ЄДРПОУ</td>
+                <div class="organization-detail-item">
 
-                <td>{{ organization.edrpou }}</td>
+                    <span>ЄДРПОУ</span>
 
-            </tr>
+                    <strong>
+                        {{ organization.edrpou|default:"Не вказано" }}
+                    </strong>
 
-            <tr>
+                </div>
 
-                <td>Місто</td>
+                <div class="organization-detail-item">
 
-                <td>{{ organization.city }}</td>
+                    <span>Місто</span>
 
-            </tr>
+                    <strong>
+                        {{ organization.city|default:"Не вказано" }}
+                    </strong>
 
-            <tr>
+                </div>
 
-                <td>Адреса</td>
+                <div class="organization-detail-item">
 
-                <td>{{ organization.address }}</td>
+                    <span>Адреса</span>
 
-            </tr>
+                    <strong>
+                        {{ organization.address|default:"Не вказано" }}
+                    </strong>
 
-            <tr>
+                </div>
 
-                <td>Email</td>
+                <div class="organization-detail-item">
 
-                <td>{{ organization.email }}</td>
+                    <span>Email</span>
 
-            </tr>
+                    <strong>
+                        {{ organization.email|default:"Не вказано" }}
+                    </strong>
 
-            <tr>
+                </div>
 
-                <td>Телефон</td>
+                <div class="organization-detail-item">
 
-                <td>{{ organization.phone }}</td>
+                    <span>Телефон</span>
 
-            </tr>
+                    <strong>
+                        {{ organization.phone|default:"Не вказано" }}
+                    </strong>
 
-        </table>
+                </div>
+
+                <div class="organization-detail-item">
+
+                    <span>Статус</span>
+
+                    <div>
+
+                        {% if organization.is_active %}
+
+                            <span class="nc-badge nc-badge-success">
+
+                                <i class="bi bi-check-circle-fill"></i>
+                                Активна
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="nc-badge nc-badge-danger">
+
+                                <i class="bi bi-x-circle-fill"></i>
+                                Неактивна
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="detail-card">
 
-        <h3>Статистика</h3>
+    <div class="col-lg-4">
 
-        <div class="stat-box">
+        <div class="nc-card">
 
-            <h2>0</h2>
+            <h3 class="mb-4">
+                Статистика
+            </h3>
 
-            <p>Працівників</p>
+            <div class="organization-detail-stats">
 
-        </div>
+                <div class="organization-detail-stat">
 
-        <div class="stat-box">
+                    <strong>0</strong>
+                    <span>Працівників</span>
 
-            <h2>0</h2>
+                </div>
 
-            <p>Курсів</p>
+                <div class="organization-detail-stat">
 
-        </div>
+                    <strong>0</strong>
+                    <span>Курсів</span>
 
-        <div class="stat-box">
+                </div>
 
-            <h2>0</h2>
+                <div class="organization-detail-stat">
 
-            <p>Тестів</p>
+                    <strong>0</strong>
+                    <span>Тестів</span>
 
-        </div>
+                </div>
 
-        <div class="stat-box">
+                <div class="organization-detail-stat">
 
-            <h2>0</h2>
+                    <strong>0</strong>
+                    <span>Сертифікатів</span>
 
-            <p>Сертифікатів</p>
+                </div>
+
+            </div>
 
         </div>
 
