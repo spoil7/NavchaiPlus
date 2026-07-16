@@ -68,4 +68,18 @@
 
     background:#F8FAFC;
 
+}.nc-btn-danger{
+
+    background:#dc2626;
+    color:white;
+
+    border:none;
+
+}
+
+.nc-btn-danger:hover{
+
+    background:#b91c1c;
+    color:white;
+
 }

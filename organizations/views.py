@@ -8,13 +8,18 @@ from .forms import OrganizationForm
 def organization_create(request):
 
     if request.method == "POST":
+
         form = OrganizationForm(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect("organizations:list")
+
+            return redirect(
+                "organizations:list",
+            )
 
     else:
+
         form = OrganizationForm()
 
     return render(
@@ -35,6 +40,7 @@ def organization_list(request):
     organizations = Organization.objects.all()
 
     if query:
+
         organizations = organizations.filter(
             Q(name__icontains=query)
             | Q(city__icontains=query)
@@ -42,10 +48,16 @@ def organization_list(request):
         )
 
     if status == "active":
-        organizations = organizations.filter(is_active=True)
+
+        organizations = organizations.filter(
+            is_active=True
+        )
 
     elif status == "inactive":
-        organizations = organizations.filter(is_active=False)
+
+        organizations = organizations.filter(
+            is_active=False
+        )
 
     sort_options = {
         "name_asc": "name",
@@ -127,5 +139,31 @@ def organization_edit(request, pk):
     return render(
         request,
         "organizations/edit.html",
+        context,
+    )
+
+
+def organization_delete(request, pk):
+
+    organization = get_object_or_404(
+        Organization,
+        pk=pk,
+    )
+
+    if request.method == "POST":
+
+        organization.delete()
+
+        return redirect(
+            "organizations:list",
+        )
+
+    context = {
+        "organization": organization,
+    }
+
+    return render(
+        request,
+        "organizations/delete.html",
         context,
     )

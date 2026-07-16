@@ -12,19 +12,28 @@ urlpatterns = [
         views.organization_list,
         name="list",
     ),
+
     path(
         "create/",
         views.organization_create,
         name="create",
     ),
+
     path(
         "<int:pk>/",
         views.organization_detail,
         name="detail",
     ),
+
     path(
         "<int:pk>/edit/",
         views.organization_edit,
         name="edit",
+    ),
+
+    path(
+        "<int:pk>/delete/",
+        views.organization_delete,
+        name="delete",
     ),
 ]
