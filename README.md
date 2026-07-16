@@ -6,14 +6,14 @@
 
 Система для управління навчанням, тестуванням та сертифікацією персоналу.
 
----
 
-![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge)
-![Django](https://img.shields.io/badge/Django-5.x-success?style=for-the-badge)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Development-orange?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
+![Release](https://img.shields.io/github/v/release/spoiI7/NavchaiPlus)
+![Python](https://img.shields.io/badge/Python-3.14-blue)
+![Django](https://img.shields.io/badge/Django-6.0-success)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/status-active-success)
+![Made in Ukraine](https://img.shields.io/badge/Made%20in-Ukraine-005BBB?labelColor=FFD500)
 </div>
 
 ---
