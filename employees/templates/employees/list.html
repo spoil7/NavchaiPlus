@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}
+Працівники
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-people"></i>
+        </div>
+
+        <div>
+            <h1>
+                {% if selected_organization %}
+                    Працівники — {{ selected_organization.name }}
+                {% else %}
+                    Працівники
+                {% endif %}
+            </h1>
+            <p>Управління працівниками системи Navchai+</p>
+        </div>
+
+    </div>
+
+    <a href="{% if selected_organization %}{% url 'employees:create' %}?organization={{ selected_organization.id }}{% else %}{% url 'employees:create' %}{% endif %}"
+       class="primary-btn">
+
+        <i class="bi bi-plus-lg"></i>
+        Додати працівника
+
+    </a>
+
+</div>
+
+
+<div class="page-toolbar">
+
+    <div class="toolbar-left">
+
+        <form method="get" class="nc-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Пошук за ПІБ, посадою або організацією..."
+            >
+
+            <input type="hidden" name="status" value="{{ status }}">
+            <input type="hidden" name="sort" value="{{ sort }}">
+            <input type="hidden" name="organization" value="{{ organization_id }}">
+
+        </form>
+
+    </div>
+
+
+    <div class="toolbar-right">
+
+        <a href="?q={{ query|urlencode }}&status=all&sort={{ sort|urlencode }}&organization={{ organization_id }}"
+           class="nc-btn nc-btn-secondary{% if status == 'all' %} active{% endif %}">
+            <i class="bi bi-grid"></i>
+            Усі
+        </a>
+
+        <a href="?q={{ query|urlencode }}&status=active&sort={{ sort|urlencode }}&organization={{ organization_id }}"
+           class="nc-btn nc-btn-secondary{% if status == 'active' %} active{% endif %}">
+            <i class="bi bi-check-circle"></i>
+            Активні
+        </a>
+
+        <a href="?q={{ query|urlencode }}&status=inactive&sort={{ sort|urlencode }}&organization={{ organization_id }}"
+           class="nc-btn nc-btn-secondary{% if status == 'inactive' %} active{% endif %}">
+            <i class="bi bi-x-circle"></i>
+            Неактивні
+        </a>
+
+
+        <div class="dropdown">
+
+            <button
+                class="nc-btn nc-btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+                <i class="bi bi-arrow-down-up"></i>
+                Сортування
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                <li>
+                    <a class="dropdown-item{% if sort == 'name_asc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_asc&organization={{ organization_id }}">
+                        ПІБ А–Я
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item{% if sort == 'name_desc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_desc&organization={{ organization_id }}">
+                        ПІБ Я–А
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <a class="dropdown-item{% if sort == 'newest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=newest&organization={{ organization_id }}">
+                        Спочатку нові
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item{% if sort == 'oldest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=oldest&organization={{ organization_id }}">
+                        Спочатку старі
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% if selected_organization %}
+
+    <p class="mb-3">
+        <a href="{% url 'employees:list' %}" class="nc-btn nc-btn-secondary">
+            <i class="bi bi-x-lg"></i>
+            Скинути фільтр по організації
+        </a>
+    </p>
+
+{% endif %}
+
+
+<div class="nc-card p-0">
+
+    <table class="table nc-table mb-0">
+
+        <thead>
+            <tr>
+                <th>ПІБ</th>
+                <th>Організація</th>
+                <th>Посада</th>
+                <th>Контакти</th>
+                <th>Статус</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for employee in employees %}
+
+            <tr>
+                <td>{{ employee.full_name }}</td>
+
+                <td>
+                    <a href="{% url 'organizations:detail' employee.organization_id %}">
+                        {{ employee.organization.name }}
+                    </a>
+                </td>
+
+                <td>{{ employee.position|default:"—" }}</td>
+
+                <td>
+                    {{ employee.phone|default:"—" }}<br>
+                    <small>{{ employee.email|default:"" }}</small>
+                </td>
+
+                <td>
+
+                    {% if employee.is_active %}
+                        <span class="nc-badge nc-badge-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Активний
+                        </span>
+                    {% else %}
+                        <span class="nc-badge nc-badge-danger">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Неактивний
+                        </span>
+                    {% endif %}
+
+                </td>
+
+                <td class="text-end">
+                    <a href="{% url 'employees:detail' employee.pk %}"
+                       class="nc-btn nc-btn-secondary">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                </td>
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="6">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        {% if query or status != "all" or organization_id %}
+
+                            <h2>Працівників не знайдено</h2>
+                            <p>Спробуйте змінити параметри пошуку або фільтрації.</p>
+
+                            <a href="{% url 'employees:list' %}"
+                               class="nc-btn nc-btn-secondary">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                                Скинути фільтри
+                            </a>
+
+                        {% else %}
+
+                            <h2>Працівники відсутні</h2>
+                            <p>Додайте першого працівника для початку роботи.</p>
+
+                            <a href="{% url 'employees:create' %}"
+                               class="nc-btn nc-btn-primary">
+                                <i class="bi bi-plus-lg"></i>
+                                Додати працівника
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
+from employees.models import Employee
 from .models import Organization
 from .forms import OrganizationForm
 
@@ -75,6 +76,7 @@ def organization_list(request):
         "query": query,
         "status": status,
         "sort": sort,
+        "employees_count": Employee.objects.count(),
     }
 
     return render(
@@ -93,6 +95,7 @@ def organization_detail(request, pk):
 
     context = {
         "organization": organization,
+        "employees_count": organization.employees.count(),
     }
 
     return render(

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{ organization.name }}
+{{ employee.full_name }}
 {% endblock %}
 
 {% block content %}
@@ -11,52 +11,33 @@
     <div class="page-header-left">
 
         <div class="page-header-icon">
-            <i class="bi bi-building"></i>
+            <i class="bi bi-person"></i>
         </div>
 
         <div>
-            <h1>{{ organization.name }}</h1>
-
-            <p>
-                Детальна інформація про організацію
-            </p>
+            <h1>{{ employee.full_name }}</h1>
+            <p>Детальна інформація про працівника</p>
         </div>
 
     </div>
 
     <div class="d-flex gap-2">
 
-        <a href="{% url 'organizations:list' %}"
-           class="nc-btn nc-btn-secondary">
-
+        <a href="{% url 'employees:list' %}" class="nc-btn nc-btn-secondary">
             <i class="bi bi-arrow-left"></i>
             До списку
-
         </a>
 
-        <a href="{% url 'employees:list' %}?organization={{ organization.pk }}"
-           class="nc-btn nc-btn-secondary">
-
-            <i class="bi bi-people"></i>
-            Працівники
-
-        </a>
-
-        <a href="{% url 'organizations:edit' organization.pk %}"
-           class="nc-btn nc-btn-primary">
-
+        <a href="{% url 'employees:edit' employee.pk %}" class="nc-btn nc-btn-primary">
             <i class="bi bi-pencil-square"></i>
             Редагувати
-
         </a>
-        <a href="{% url 'organizations:delete' organization.pk %}"
-             class="nc-btn nc-btn-danger">
 
+        <a href="{% url 'employees:delete' employee.pk %}" class="nc-btn nc-btn-danger">
             <i class="bi bi-trash3"></i>
+            Видалити
+        </a>
 
-    Видалити
-
-</a>
     </div>
 
 </div>
@@ -68,90 +49,49 @@
 
         <div class="nc-card">
 
-            <h3 class="mb-4">
-                Основна інформація
-            </h3>
+            <h3 class="mb-4">Основна інформація</h3>
 
             <div class="organization-detail-list">
 
                 <div class="organization-detail-item">
-
-                    <span>ЄДРПОУ</span>
-
+                    <span>Організація</span>
                     <strong>
-                        {{ organization.edrpou|default:"Не вказано" }}
+                        <a href="{% url 'organizations:detail' employee.organization_id %}">
+                            {{ employee.organization.name }}
+                        </a>
                     </strong>
-
                 </div>
 
                 <div class="organization-detail-item">
-
-                    <span>Місто</span>
-
-                    <strong>
-                        {{ organization.city|default:"Не вказано" }}
-                    </strong>
-
+                    <span>Посада</span>
+                    <strong>{{ employee.position|default:"Не вказано" }}</strong>
                 </div>
 
                 <div class="organization-detail-item">
-
-                    <span>Адреса</span>
-
-                    <strong>
-                        {{ organization.address|default:"Не вказано" }}
-                    </strong>
-
-                </div>
-
-                <div class="organization-detail-item">
-
                     <span>Email</span>
-
-                    <strong>
-                        {{ organization.email|default:"Не вказано" }}
-                    </strong>
-
+                    <strong>{{ employee.email|default:"Не вказано" }}</strong>
                 </div>
 
                 <div class="organization-detail-item">
-
                     <span>Телефон</span>
-
-                    <strong>
-                        {{ organization.phone|default:"Не вказано" }}
-                    </strong>
-
+                    <strong>{{ employee.phone|default:"Не вказано" }}</strong>
                 </div>
 
                 <div class="organization-detail-item">
-
                     <span>Статус</span>
-
                     <div>
-
-                        {% if organization.is_active %}
-
+                        {% if employee.is_active %}
                             <span class="nc-badge nc-badge-success">
-
                                 <i class="bi bi-check-circle-fill"></i>
-                                Активна
-
+                                Активний
                             </span>
-
                         {% else %}
-
                             <span class="nc-badge nc-badge-danger">
-
                                 <i class="bi bi-x-circle-fill"></i>
-                                Неактивна
-
+                                Неактивний
                             </span>
-
                         {% endif %}
-
                     </div>
-
                 </div>
 
             </div>
@@ -165,38 +105,23 @@
 
         <div class="nc-card">
 
-            <h3 class="mb-4">
-                Статистика
-            </h3>
+            <h3 class="mb-4">Навчання</h3>
 
             <div class="organization-detail-stats">
 
                 <div class="organization-detail-stat">
-
-                    <strong>{{ employees_count }}</strong>
-                    <span>Працівників</span>
-
-                </div>
-
-                <div class="organization-detail-stat">
-
                     <strong>0</strong>
                     <span>Курсів</span>
-
                 </div>
 
                 <div class="organization-detail-stat">
-
                     <strong>0</strong>
                     <span>Тестів</span>
-
                 </div>
 
                 <div class="organization-detail-stat">
-
                     <strong>0</strong>
                     <span>Сертифікатів</span>
-
                 </div>
 
             </div>

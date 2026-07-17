@@ -68,7 +68,24 @@
 
     background:#F8FAFC;
 
-}.nc-btn-danger{
+}
+
+.nc-btn-secondary.active{
+
+    background:#2563EB;
+    border-color:#2563EB;
+    color:#fff;
+
+}
+
+.dropdown-item.active{
+
+    background:#EFF6FF;
+    color:#2563EB;
+    font-weight:600;
+
+}
+.nc-btn-danger{
 
     background:#dc2626;
     color:white;

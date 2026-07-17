@@ -62,20 +62,20 @@
 
     <div class="toolbar-right">
 
-        <a href="?q={{ query }}&status=all&sort={{ sort }}"
-           class="nc-btn nc-btn-secondary">
+        <a href="?q={{ query|urlencode }}&status=all&sort={{ sort|urlencode }}"
+           class="nc-btn nc-btn-secondary{% if status == 'all' %} active{% endif %}">
             <i class="bi bi-grid"></i>
             Усі
         </a>
 
-        <a href="?q={{ query }}&status=active&sort={{ sort }}"
-           class="nc-btn nc-btn-secondary">
+        <a href="?q={{ query|urlencode }}&status=active&sort={{ sort|urlencode }}"
+           class="nc-btn nc-btn-secondary{% if status == 'active' %} active{% endif %}">
             <i class="bi bi-check-circle"></i>
             Активні
         </a>
 
-        <a href="?q={{ query }}&status=inactive&sort={{ sort }}"
-           class="nc-btn nc-btn-secondary">
+        <a href="?q={{ query|urlencode }}&status=inactive&sort={{ sort|urlencode }}"
+           class="nc-btn nc-btn-secondary{% if status == 'inactive' %} active{% endif %}">
             <i class="bi bi-x-circle"></i>
             Неактивні
         </a>
@@ -97,8 +97,8 @@
             <ul class="dropdown-menu">
 
                 <li>
-                    <a class="dropdown-item"
-                       href="?q={{ query }}&status={{ status }}&sort=name_asc">
+                    <a class="dropdown-item{% if sort == 'name_asc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_asc">
 
                         Назва А–Я
 
@@ -106,8 +106,8 @@
                 </li>
 
                 <li>
-                    <a class="dropdown-item"
-                       href="?q={{ query }}&status={{ status }}&sort=name_desc">
+                    <a class="dropdown-item{% if sort == 'name_desc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_desc">
 
                         Назва Я–А
 
@@ -117,8 +117,8 @@
                 <li><hr class="dropdown-divider"></li>
 
                 <li>
-                    <a class="dropdown-item"
-                       href="?q={{ query }}&status={{ status }}&sort=newest">
+                    <a class="dropdown-item{% if sort == 'newest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=newest">
 
                         Спочатку нові
 
@@ -126,8 +126,8 @@
                 </li>
 
                 <li>
-                    <a class="dropdown-item"
-                       href="?q={{ query }}&status={{ status }}&sort=oldest">
+                    <a class="dropdown-item{% if sort == 'oldest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=oldest">
 
                         Спочатку старі
 
@@ -165,7 +165,7 @@
             <i class="bi bi-people"></i>
         </div>
 
-        <div class="stat-number">0</div>
+        <div class="stat-number">{{ employees_count }}</div>
 
         <div class="stat-title">
             Працівників

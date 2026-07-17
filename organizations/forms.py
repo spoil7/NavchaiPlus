@@ -5,6 +5,27 @@ from .models import Organization
 
 class OrganizationForm(forms.ModelForm):
 
+    def clean_edrpou(self):
+
+        edrpou = self.cleaned_data.get("edrpou", "").strip()
+
+        if not edrpou:
+            return edrpou
+
+        duplicate = Organization.objects.filter(
+            edrpou=edrpou,
+        ).exclude(
+            pk=self.instance.pk,
+        )
+
+        if duplicate.exists():
+
+            raise forms.ValidationError(
+                "Організація з таким ЄДРПОУ вже існує."
+            )
+
+        return edrpou
+
     class Meta:
 
         model = Organization

@@ -1,24 +1,19 @@
 from django.shortcuts import render
-from .models import Course, Employee, Test, Certificate
+
+from employees.models import Employee
+from organizations.models import Organization
+
 
 def dashboard_context():
+
     return {
-        "courses": Course.objects.count(),
+        "organizations": Organization.objects.count(),
         "employees": Employee.objects.count(),
-        "tests": Test.objects.count(),
-        "certificates": Certificate.objects.count(),
+        # Курси/Тести/Сертифікати ще не реалізовані (Sprint 4-6)
+        "courses": 0,
+        "tests": 0,
+        "certificates": 0,
     }
-
-
-def home(request):
-    context = {
-        "courses": Course.objects.count(),
-        "employees": Employee.objects.count(),
-        "tests": Test.objects.count(),
-        "certificates": Certificate.objects.count(),
-    }
-
-    return render(request, "dashboard.html", context)
 
 
 def home(request):
@@ -33,10 +28,6 @@ def tests(request):
     return render(request, "dashboard.html", dashboard_context())
 
 
-def employees(request):
-    return render(request, "dashboard.html", dashboard_context())
-
-
 def certificates(request):
     return render(request, "dashboard.html", dashboard_context())
 
@@ -47,4 +38,3 @@ def reports(request):
 
 def settings(request):
     return render(request, "dashboard.html", dashboard_context())
-from .models import Course, Employee, Test, Certificate 

@@ -1,4 +1,11 @@
+from django.core.validators import RegexValidator
 from django.db import models
+
+
+edrpou_validator = RegexValidator(
+    regex=r"^\d{8}$|^\d{10}$",
+    message="ЄДРПОУ має містити 8 цифр (юрособа) або 10 цифр (ФОП).",
+)
 
 
 class Organization(models.Model):
@@ -10,7 +17,9 @@ class Organization(models.Model):
     edrpou = models.CharField(
         "ЄДРПОУ",
         max_length=20,
-        blank=True
+        blank=True,
+        validators=[edrpou_validator],
+        help_text="8 цифр для юридичної особи або 10 цифр для ФОП.",
     )
 
     city = models.CharField(

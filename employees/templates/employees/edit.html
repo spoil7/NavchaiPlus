@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Нова організація
+Редагування працівника
 {% endblock %}
 
 {% block content %}
@@ -11,25 +11,20 @@
     <div class="page-header-left">
 
         <div class="page-header-icon">
-            <i class="bi bi-building-add"></i>
+            <i class="bi bi-pencil-square"></i>
         </div>
 
         <div>
-            <h1>Нова організація</h1>
-
-            <p>
-                Додайте нову організацію до системи
-            </p>
+            <h1>Редагування працівника</h1>
+            <p>{{ employee.full_name }}</p>
         </div>
 
     </div>
 
-    <a href="{% url 'organizations:list' %}"
+    <a href="{% url 'employees:detail' employee.pk %}"
        class="nc-btn nc-btn-secondary">
-
         <i class="bi bi-arrow-left"></i>
-        До списку
-
+        Назад
     </a>
 
 </div>
@@ -42,30 +37,19 @@
         <div class="nc-card organization-form-card">
 
             <div class="organization-form-header">
-
                 <h3>Основна інформація</h3>
-
-                <p>
-                    Заповніть дані про організацію.
-                </p>
-
+                <p>Оновіть інформацію про працівника.</p>
             </div>
 
-
-            <form method="post"
-                  class="organization-form">
+            <form method="post" class="organization-form">
 
                 {% csrf_token %}
 
-
                 {% if form.non_field_errors %}
-
                     <div class="organization-form-errors">
                         {{ form.non_field_errors }}
                     </div>
-
                 {% endif %}
-
 
                 {% for field in form %}
 
@@ -78,42 +62,28 @@
                         {{ field }}
 
                         {% if field.help_text %}
-
-                            <small>
-                                {{ field.help_text }}
-                            </small>
-
+                            <small>{{ field.help_text }}</small>
                         {% endif %}
 
-
                         {% if field.errors %}
-
                             <div class="organization-field-errors">
                                 {{ field.errors }}
                             </div>
-
                         {% endif %}
 
                     </div>
 
                 {% endfor %}
 
-
                 <div class="organization-form-actions">
 
-                    <button type="submit"
-                            class="nc-btn nc-btn-primary">
-
+                    <button type="submit" class="nc-btn nc-btn-primary">
                         <i class="bi bi-check-lg"></i>
-                        Створити організацію
-
+                        Зберегти зміни
                     </button>
 
-                    <a href="{% url 'organizations:list' %}"
-                       class="nc-btn nc-btn-secondary">
-
+                    <a href="{% url 'employees:detail' employee.pk %}" class="nc-btn nc-btn-secondary">
                         Скасувати
-
                     </a>
 
                 </div>
