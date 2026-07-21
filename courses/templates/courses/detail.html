@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ course.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-book"></i>
+        </div>
+
+        <div>
+            <h1>{{ course.title }}</h1>
+            <p>Детальна інформація про курс</p>
+        </div>
+
+    </div>
+
+    <div class="d-flex gap-2">
+
+        <a href="{% url 'courses:list' %}" class="nc-btn nc-btn-secondary">
+            <i class="bi bi-arrow-left"></i>
+            До списку
+        </a>
+
+        <a href="{% url 'lessons:create' %}?course={{ course.id }}" class="nc-btn nc-btn-success">
+            <i class="bi bi-plus-circle"></i>
+            Додати урок
+        </a>
+
+        <a href="{% url 'courses:edit' course.pk %}" class="nc-btn nc-btn-primary">
+            <i class="bi bi-pencil-square"></i>
+            Редагувати
+        </a>
+
+        <a href="{% url 'courses:delete' course.pk %}" class="nc-btn nc-btn-danger">
+            <i class="bi bi-trash3"></i>
+            Видалити
+        </a>
+
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-8">
+
+        <div class="nc-card">
+
+            <h3 class="mb-4">
+                Основна інформація
+            </h3>
+
+            <div class="organization-detail-list">
+
+                <div class="organization-detail-item">
+                    <span>Назва</span>
+                    <strong>{{ course.title }}</strong>
+                </div>
+
+                <div class="organization-detail-item">
+                    <span>Опис</span>
+                    <strong>{{ course.short_description|default:"Не вказано" }}</strong>
+                </div>
+
+                <div class="organization-detail-item">
+                    <span>Тривалість</span>
+                    <strong>{{ course.duration }} хв</strong>
+                </div>
+
+                <div class="organization-detail-item">
+                    <span>Статус</span>
+
+                    <div>
+
+                        {% if course.status == "active" %}
+
+                        <span class="nc-badge nc-badge-success">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Активний
+                        </span>
+
+                        {% else %}
+
+                        <span class="nc-badge nc-badge-danger">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Неактивний
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="nc-card mt-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h3 class="mb-0">
+                    Уроки курсу
+                </h3>
+
+                <a href="{% url 'lessons:list' %}?course={{ course.id }}"
+                   class="nc-btn nc-btn-secondary">
+
+                    Усі уроки
+
+                </a>
+
+            </div>
+
+            {% if lessons %}
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="70">№</th>
+
+                        <th>Назва</th>
+
+                        <th width="180">Статус</th>
+
+                        <th width="170">Дії</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for lesson in lessons %}
+
+                    <tr>
+
+                        <td>{{ lesson.order }}</td>
+
+                        <td>
+
+                            <strong>{{ lesson.title }}</strong><br>
+
+                            <small class="text-muted">
+
+                                {{ lesson.short_description|default:"Без опису" }}
+
+                            </small>
+
+                        </td>
+
+                        <td>
+
+                            {% if lesson.status == "published" %}
+
+                                <span class="nc-badge nc-badge-success">
+
+                                    Опубліковано
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="nc-badge nc-badge-warning">
+
+                                    Чернетка
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'lessons:detail' lesson.pk %}"
+                               class="btn btn-sm btn-outline-primary">
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                            <a href="{% url 'lessons:edit' lesson.pk %}"
+                               class="btn btn-sm btn-outline-secondary">
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-journal-x fs-1 text-muted"></i>
+
+                <h5 class="mt-3">
+
+                    У курсі поки немає уроків
+
+                </h5>
+
+                <a href="{% url 'lessons:create' %}?course={{ course.id }}"
+                   class="nc-btn nc-btn-primary mt-3">
+
+                    Створити перший урок
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+      <div class="col-lg-4">
+
+        <div class="nc-card">
+
+            <h3 class="mb-4">
+                Статистика
+            </h3>
+
+            <div class="organization-detail-stats">
+
+                <div class="organization-detail-stat">
+
+                    <strong>{{ lesson_count }}</strong>
+
+                    <span>Уроків</span>
+
+                </div>
+
+                <div class="organization-detail-stat">
+
+                    <strong>{{ published_lessons }}</strong>
+
+                    <span>Опубліковано</span>
+
+                </div>
+
+                <div class="organization-detail-stat">
+
+                    <strong>0</strong>
+
+                    <span>Тестів</span>
+
+                </div>
+
+                <div class="organization-detail-stat">
+
+                    <strong>0</strong>
+
+                    <span>Слухачів</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="nc-card mt-4">
+
+            <h3 class="mb-4">
+                Швидкі дії
+            </h3>
+
+            <div class="d-grid gap-2">
+
+                <a href="{% url 'lessons:create' %}?course={{ course.id }}"
+                   class="nc-btn nc-btn-primary">
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    Додати урок
+
+                </a>
+
+                <a href="{% url 'lessons:list' %}?course={{ course.id }}"
+                   class="nc-btn nc-btn-secondary">
+
+                    <i class="bi bi-journal-text"></i>
+
+                    Переглянути уроки
+
+                </a>
+
+                <a href="{% url 'courses:edit' course.pk %}"
+                   class="nc-btn nc-btn-secondary">
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    Редагувати курс
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="nc-card mt-4">
+
+            <h3 class="mb-3">
+
+                Інформація
+
+            </h3>
+
+            <table class="table table-borderless mb-0">
+
+                <tr>
+
+                    <td>Статус</td>
+
+                    <td class="text-end">
+
+                        {% if course.status == "active" %}
+
+                            <span class="text-success">
+
+                                Активний
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="text-danger">
+
+                                Неактивний
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Тривалість</td>
+
+                    <td class="text-end">
+
+                        {{ course.duration }} хв
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Уроків</td>
+
+                    <td class="text-end">
+
+                        {{ lesson_count }}
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

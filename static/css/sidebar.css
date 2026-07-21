@@ -28,6 +28,15 @@
     gap:14px;
 
     margin-bottom:40px;
+
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+}
+
+.logo:hover{
+    text-decoration:none;
+    color:inherit;
 }
 
 .logo-icon{

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}
+Новий урок
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-journal-plus"></i>
+        </div>
+
+        <div>
+
+            <h1>Новий урок</h1>
+
+            <p>Створення нового уроку</p>
+
+        </div>
+
+    </div>
+
+    <a href="{% url 'lessons:list' %}"
+       class="nc-btn nc-btn-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        До списку
+
+    </a>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-xl-8 col-lg-10">
+
+        <div class="nc-card organization-form-card">
+
+            <div class="organization-form-header">
+
+                <h3>
+
+                    Основна інформація
+
+                </h3>
+
+                <p>
+
+                    Заповніть інформацію про урок.
+
+                </p>
+
+            </div>
+
+
+            <form method="post"
+                  class="organization-form">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+
+                    <div class="organization-form-errors">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                {% for field in form %}
+
+                    <div class="organization-form-field">
+
+                        <label for="{{ field.id_for_label }}">
+
+                            {{ field.label }}
+
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+
+                            <small>
+
+                                {{ field.help_text }}
+
+                            </small>
+
+                        {% endif %}
+
+                        {% if field.errors %}
+
+                            <div class="organization-field-errors">
+
+                                {{ field.errors }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+
+                <div class="organization-form-actions">
+
+                    <button
+                        type="submit"
+                        class="nc-btn nc-btn-primary">
+
+                        <i class="bi bi-check-lg"></i>
+
+                        Створити урок
+
+                    </button>
+
+                    <a href="{% url 'lessons:list' %}"
+                       class="nc-btn nc-btn-secondary">
+
+                        Скасувати
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

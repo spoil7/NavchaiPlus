@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}
+Редагування тесту
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-pencil-square"></i>
+        </div>
+
+        <div>
+
+            <h1>Редагування тесту</h1>
+
+            <p>Змініть інформацію про тест</p>
+
+        </div>
+
+    </div>
+
+    <a href="{% url 'tests:detail' test.pk %}"
+       class="nc-btn nc-btn-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Назад
+
+    </a>
+
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-9">
+
+        <div class="nc-card">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+
+                    <div class="alert alert-danger">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+                {% for field in form %}
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            {{ field.label }}
+
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+
+                            <div class="form-text">
+
+                                {{ field.help_text }}
+
+                            </div>
+
+                        {% endif %}
+
+                        {% for error in field.errors %}
+
+                            <div class="text-danger mt-1">
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+
+                <div class="d-flex gap-2">
+
+                    <button
+                        type="submit"
+                        class="nc-btn nc-btn-primary">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Зберегти зміни
+
+                    </button>
+
+                    <a href="{% url 'tests:detail' test.pk %}"
+                       class="nc-btn nc-btn-secondary">
+
+                        Скасувати
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

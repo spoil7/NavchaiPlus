@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}
+Тести
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-patch-check"></i>
+        </div>
+
+        <div>
+            <h1>Тести</h1>
+            <p>Управління тестами системи навчання</p>
+        </div>
+
+    </div>
+
+    <a href="{% url 'tests:create' %}" class="nc-btn nc-btn-primary">
+        <i class="bi bi-plus-circle"></i>
+        Створити тест
+    </a>
+
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <div class="stat-value">{{ total_tests }}</div>
+        <div class="stat-label">Всього тестів</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-value">{{ published_tests }}</div>
+        <div class="stat-label">Опубліковано</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-value">{{ draft_tests }}</div>
+        <div class="stat-label">Чернетки</div>
+    </div>
+
+</div>
+
+<div class="nc-card">
+
+    <form method="get" class="row g-3 mb-4">
+
+        <div class="col-md-5">
+
+            <input
+                type="text"
+                name="q"
+                class="form-control"
+                placeholder="Пошук..."
+                value="{{ query }}"
+            >
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select
+                name="status"
+                class="form-select"
+            >
+
+                <option value="all"
+                    {% if status == "all" %}selected{% endif %}>
+                    Усі
+                </option>
+
+                <option value="published"
+                    {% if status == "published" %}selected{% endif %}>
+                    Опубліковані
+                </option>
+
+                <option value="draft"
+                    {% if status == "draft" %}selected{% endif %}>
+                    Чернетки
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <select
+                name="sort"
+                class="form-select"
+            >
+
+                <option value="name_asc"
+                    {% if sort == "name_asc" %}selected{% endif %}>
+                    Назва А-Я
+                </option>
+
+                <option value="name_desc"
+                    {% if sort == "name_desc" %}selected{% endif %}>
+                    Назва Я-А
+                </option>
+
+                <option value="newest"
+                    {% if sort == "newest" %}selected{% endif %}>
+                    Нові
+                </option>
+
+                <option value="oldest"
+                    {% if sort == "oldest" %}selected{% endif %}>
+                    Старі
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="col-md-1">
+
+            <button
+                class="nc-btn nc-btn-primary w-100"
+                type="submit">
+
+                <i class="bi bi-search"></i>
+
+            </button>
+
+        </div>
+
+    </form>
+        {% if tests %}
+
+    <div class="table-responsive">
+
+        <table class="table align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Назва</th>
+                    <th>Курс</th>
+                    <th>Прохідний бал</th>
+                    <th>Час</th>
+                    <th>Статус</th>
+                    <th width="180">Дії</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for test in tests %}
+
+                <tr>
+
+                    <td>
+
+                        <strong>{{ test.title }}</strong>
+
+                        {% if test.description %}
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                {{ test.description|truncatechars:70 }}
+
+                            </small>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {{ test.course.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ test.passing_score }}%
+
+                    </td>
+
+                    <td>
+
+                        {{ test.time_limit }} хв
+
+                    </td>
+
+                    <td>
+
+                        {% if test.status == "published" %}
+
+                            <span class="nc-badge nc-badge-success">
+                                Опубліковано
+                            </span>
+
+                        {% else %}
+
+                            <span class="nc-badge nc-badge-warning">
+                                Чернетка
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <div class="d-flex gap-2">
+
+                            <a href="{% url 'tests:detail' test.pk %}"
+                               class="btn btn-sm btn-outline-primary">
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+                            <a href="{% url 'tests:edit' test.pk %}"
+                               class="btn btn-sm btn-outline-secondary">
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                            <a href="{% url 'tests:delete' test.pk %}"
+                               class="btn btn-sm btn-outline-danger">
+
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="text-center py-5">
+
+        <i class="bi bi-patch-question fs-1 text-muted"></i>
+
+        <h4 class="mt-3">
+
+            Тести поки відсутні
+
+        </h4>
+
+        <p class="text-muted">
+
+            Створіть перший тест для курсу.
+
+        </p>
+
+        <a href="{% url 'tests:create' %}"
+           class="nc-btn nc-btn-primary">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Створити тест
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

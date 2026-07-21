@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'core',
     'organizations',
     'employees',
+    'courses',
+    "lessons",
+    "tests",
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

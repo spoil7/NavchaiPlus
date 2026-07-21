@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+
+{% block title %}
+Уроки
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-journal-text"></i>
+        </div>
+
+        <div>
+            <h1>Уроки</h1>
+            <p>Управління уроками навчальних курсів</p>
+        </div>
+
+    </div>
+
+    <a href="{% url 'lessons:create' %}"
+       class="primary-btn">
+
+        <i class="bi bi-plus-lg"></i>
+
+        Додати урок
+
+    </a>
+
+</div>
+
+
+<div class="page-toolbar">
+
+    <div class="toolbar-left">
+
+        <form method="get" class="nc-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Пошук уроку..."
+            >
+
+            <input
+                type="hidden"
+                name="status"
+                value="{{ status }}"
+            >
+
+            <input
+                type="hidden"
+                name="sort"
+                value="{{ sort }}"
+            >
+
+        </form>
+
+    </div>
+
+
+    <div class="toolbar-right">
+
+        <a href="?q={{ query|urlencode }}&status=all&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'all' %} active{% endif %}">
+
+            <i class="bi bi-grid"></i>
+
+            Усі
+
+        </a>
+
+
+        <a href="?q={{ query|urlencode }}&status=published&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'published' %} active{% endif %}">
+
+            <i class="bi bi-check-circle"></i>
+
+            Опубліковані
+
+        </a>
+
+
+        <a href="?q={{ query|urlencode }}&status=draft&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'draft' %} active{% endif %}">
+
+            <i class="bi bi-pencil"></i>
+
+            Чернетки
+
+        </a>
+
+
+        <div class="dropdown">
+
+            <button
+                class="nc-btn nc-btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown">
+
+                <i class="bi bi-arrow-down-up"></i>
+
+                Сортування
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=title">
+
+                        Назва А–Я
+
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=-title">
+
+                        Назва Я–А
+
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=order">
+
+                        За порядком
+
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=newest">
+
+                        Спочатку нові
+
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=oldest">
+
+                        Спочатку старі
+
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="nc-card p-0">
+
+    <table class="table nc-table mb-0">
+
+        <thead>
+
+            <tr>
+
+                <th>Назва</th>
+
+                <th>Курс</th>
+
+                <th>Порядок</th>
+
+                <th>Статус</th>
+
+                <th></th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for lesson in lessons %}
+
+            <tr>
+
+                <td>
+
+                    <strong>
+
+                        {{ lesson.title }}
+
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+
+                        {{ lesson.short_description|truncatechars:70 }}
+
+                    </small>
+
+                </td>
+
+                <td>
+
+                    {{ lesson.course.title }}
+
+                </td>
+
+                <td>
+
+                    {{ lesson.order }}
+
+                </td>
+
+                <td>
+
+                    {% if lesson.status == "published" %}
+
+                        <span class="nc-badge nc-badge-success">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Опубліковано
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="nc-badge nc-badge-warning">
+
+                            <i class="bi bi-pencil-fill"></i>
+
+                            Чернетка
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td class="text-end">
+
+                    <a href="{% url 'lessons:detail' lesson.pk %}"
+                       class="nc-btn nc-btn-secondary">
+
+                        <i class="bi bi-box-arrow-up-right"></i>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="5">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+
+                            <i class="bi bi-journal-text"></i>
+
+                        </div>
+
+                        <h2>
+
+                            Поки що немає уроків
+
+                        </h2>
+
+                        <p>
+
+                            Створіть перший урок у системі.
+
+                        </p>
+
+                        <a href="{% url 'lessons:create' %}"
+                           class="nc-btn nc-btn-primary">
+
+                            <i class="bi bi-plus-lg"></i>
+
+                            Створити урок
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

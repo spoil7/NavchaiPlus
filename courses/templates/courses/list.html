@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block title %}
+Курси
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div class="page-header-left">
+
+        <div class="page-header-icon">
+            <i class="bi bi-book"></i>
+        </div>
+
+        <div>
+            <h1>Курси</h1>
+            <p>Управління навчальними курсами Navchai+</p>
+        </div>
+
+    </div>
+
+    <a href="{% url 'courses:create' %}"
+       class="primary-btn">
+
+        <i class="bi bi-plus-lg"></i>
+        Додати курс
+
+    </a>
+
+</div>
+
+
+<div class="page-toolbar">
+
+    <div class="toolbar-left">
+
+        <form method="get" class="nc-search">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                name="q"
+                value="{{ query }}"
+                placeholder="Пошук курсу..."
+            >
+
+            <input
+                type="hidden"
+                name="status"
+                value="{{ status }}"
+            >
+
+            <input
+                type="hidden"
+                name="sort"
+                value="{{ sort }}"
+            >
+
+        </form>
+
+    </div>
+
+
+    <div class="toolbar-right">
+
+        <a href="?q={{ query|urlencode }}&status=all&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'all' %} active{% endif %}">
+
+            <i class="bi bi-grid"></i>
+            Усі
+
+        </a>
+
+        <a href="?q={{ query|urlencode }}&status=active&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'active' %} active{% endif %}">
+
+            <i class="bi bi-check-circle"></i>
+            Активні
+
+        </a>
+
+        <a href="?q={{ query|urlencode }}&status=inactive&sort={{ sort }}"
+           class="nc-btn nc-btn-secondary{% if status == 'inactive' %} active{% endif %}">
+
+            <i class="bi bi-x-circle"></i>
+            Неактивні
+
+        </a>
+
+
+
+        <div class="dropdown">
+
+            <button
+                class="nc-btn nc-btn-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown">
+
+                <i class="bi bi-arrow-down-up"></i>
+
+                Сортування
+
+            </button>
+
+
+            <ul class="dropdown-menu">
+
+                <li>
+
+                    <a class="dropdown-item{% if sort == 'name_asc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_asc">
+
+                        Назва А–Я
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item{% if sort == 'name_desc' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=name_desc">
+
+                        Назва Я–А
+
+                    </a>
+
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+
+                    <a class="dropdown-item{% if sort == 'newest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=newest">
+
+                        Спочатку нові
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item{% if sort == 'oldest' %} active{% endif %}"
+                       href="?q={{ query|urlencode }}&status={{ status }}&sort=oldest">
+
+                        Спочатку старі
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="nc-card p-0">
+
+    <table class="table nc-table mb-0">
+
+        <thead>
+
+            <tr>
+
+                <th>Назва</th>
+
+                <th>Опис</th>
+
+                <th>Тривалість</th>
+
+                <th>Статус</th>
+
+                <th></th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for course in courses %}
+
+            <tr>
+
+                <td>
+
+                    <strong>
+
+                        {{ course.title }}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    {{ course.short_description|truncatechars:80 }}
+
+                </td>
+
+
+                <td>
+
+                    {{ course.duration }} хв
+
+                </td>
+
+
+                <td>
+
+                    {% if course.status == "active" %}
+
+                        <span class="nc-badge nc-badge-success">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Активний
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="nc-badge nc-badge-danger">
+
+                            <i class="bi bi-x-circle-fill"></i>
+
+                            Неактивний
+
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <td class="text-end">
+
+                    <a href="{% url 'courses:detail' course.pk %}"
+                       class="nc-btn nc-btn-secondary">
+
+                        <i class="bi bi-box-arrow-up-right"></i>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="5">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+
+                            <i class="bi bi-book"></i>
+
+                        </div>
+
+
+                        {% if query or status != "all" %}
+
+                            <h2>Курсів не знайдено</h2>
+
+                            <p>
+
+                                Спробуйте змінити параметри пошуку.
+
+                            </p>
+
+                            <a href="{% url 'courses:list' %}"
+                               class="nc-btn nc-btn-secondary">
+
+                                <i class="bi bi-arrow-counterclockwise"></i>
+
+                                Скинути фільтри
+
+                            </a>
+
+                        {% else %}
+
+                            <h2>Поки що немає курсів</h2>
+
+                            <p>
+
+                                Створіть перший курс у системі.
+
+                            </p>
+
+                            <a href="{% url 'courses:create' %}"
+                               class="nc-btn nc-btn-primary">
+
+                                <i class="bi bi-plus-lg"></i>
+
+                                Додати курс
+
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
