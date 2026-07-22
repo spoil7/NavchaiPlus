@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Питання{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Перегляд питання</h1>
+        <p>Інформація про питання</p>
+    </div>
+
+    <a href="{% url 'questions:list' %}" class="btn btn-secondary">
+        ← Назад
+    </a>
+
+</div>
+
+<div class="card">
+
+    <table class="table">
+
+        <tr>
+            <th width="250">ID</th>
+            <td>{{ question.id }}</td>
+        </tr>
+
+        <tr>
+            <th>Тест</th>
+            <td>{{ question.test }}</td>
+        </tr>
+
+        <tr>
+            <th>Питання</th>
+            <td>{{ question.title }}</td>
+        </tr>
+
+        <tr>
+            <th>Порядок</th>
+            <td>{{ question.order }}</td>
+        </tr>
+
+        <tr>
+            <th>Кількість балів</th>
+            <td>{{ question.points }}</td>
+        </tr>
+
+        <tr>
+            <th>Статус</th>
+            <td>
+                {% if question.is_active %}
+                    ✅ Активне
+                {% else %}
+                    ❌ Неактивне
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Створено</th>
+            <td>{{ question.created_at }}</td>
+        </tr>
+
+        <tr>
+            <th>Оновлено</th>
+            <td>{{ question.updated_at }}</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div style="margin-top:20px; display:flex; gap:10px;">
+
+    <a href="{% url 'questions:edit' question.id %}" class="btn btn-primary">
+        Редагувати
+    </a>
+
+    <a href="{% url 'questions:delete' question.id %}" class="btn btn-danger">
+        Видалити
+    </a>
+
+</div>
+
+{% endblock %}

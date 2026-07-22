@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Питання{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Питання</h1>
+        <p>Керування питаннями тестів</p>
+    </div>
+
+    <a href="{% url 'questions:create' %}" class="btn btn-primary">
+        + Додати питання
+    </a>
+</div>
+
+<div class="card">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Тест</th>
+                <th>Питання</th>
+                <th>Порядок</th>
+                <th>Бали</th>
+                <th>Статус</th>
+                <th width="180">Дії</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for question in questions %}
+
+            <tr>
+
+                <td>{{ question.id }}</td>
+
+                <td>{{ question.test }}</td>
+
+                <td>{{ question.title|truncatechars:70 }}</td>
+
+                <td>{{ question.order }}</td>
+
+                <td>{{ question.points }}</td>
+
+                <td>
+                    {% if question.is_active %}
+                        ✅ Активне
+                    {% else %}
+                        ❌ Неактивне
+                    {% endif %}
+                </td>
+
+                <td>
+
+                    <a href="{% url 'questions:detail' question.id %}">
+                        Перегляд
+                    </a>
+
+                    |
+
+                    <a href="{% url 'questions:edit' question.id %}">
+                        Редагувати
+                    </a>
+
+                    |
+
+                    <a href="{% url 'questions:delete' question.id %}">
+                        Видалити
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="7" style="text-align:center;padding:40px;">
+
+                    Питань поки що немає.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

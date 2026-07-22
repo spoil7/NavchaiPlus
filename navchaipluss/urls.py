@@ -49,4 +49,7 @@ path(
     "tests/",
     include("tests.urls"),
 ),
+path
+("questions/", include("questions.urls")
+),
 ]

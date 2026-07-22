@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Видалення питання{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Видалення питання</h1>
+        <p>Підтвердіть видалення питання</p>
+    </div>
+
+    <a href="{% url 'questions:list' %}" class="btn btn-secondary">
+        ← Назад
+    </a>
+
+</div>
+
+<div class="card">
+
+    <h3>Ви дійсно бажаєте видалити це питання?</h3>
+
+    <div style="margin-top:25px;">
+
+        <strong>Тест:</strong>
+
+        {{ question.test }}
+
+    </div>
+
+    <div style="margin-top:15px;">
+
+        <strong>Питання:</strong>
+
+        <p>{{ question.title }}</p>
+
+    </div>
+
+    <form method="post" style="margin-top:30px;">
+
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-danger">
+            🗑 Видалити
+        </button>
+
+        <a href="{% url 'questions:list' %}" class="btn btn-secondary">
+            Скасувати
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
