@@ -52,4 +52,5 @@ path(
 path
 ("questions/", include("questions.urls")
 ),
+path("answers/", include("answers.urls")),
 ]

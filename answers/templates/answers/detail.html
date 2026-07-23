@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Перегляд відповіді{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2>
+                <i class="bi bi-eye"></i>
+                Перегляд відповіді
+            </h2>
+
+            <p class="text-muted mb-0">
+                Інформація про відповідь
+            </p>
+        </div>
+
+        <div>
+
+            <a href="{% url 'answers:edit' answer.pk %}"
+               class="btn btn-warning">
+
+                <i class="bi bi-pencil"></i>
+                Редагувати
+
+            </a>
+
+            <a href="{% url 'answers:list' %}"
+               class="btn btn-secondary">
+
+                <i class="bi bi-arrow-left"></i>
+                Назад
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            <table class="table table-borderless">
+
+                <tr>
+                    <th width="220">ID</th>
+                    <td>{{ answer.id }}</td>
+                </tr>
+
+                <tr>
+                    <th>Питання</th>
+                    <td>{{ answer.question }}</td>
+                </tr>
+
+                <tr>
+                    <th>Відповідь</th>
+                    <td>{{ answer.text }}</td>
+                </tr>
+
+                <tr>
+                    <th>Правильна відповідь</th>
+
+                    <td>
+
+                        {% if answer.is_correct %}
+
+                            <span class="badge bg-success">
+                                ✔ Так
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                ✖ Ні
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <th>Порядок</th>
+                    <td>{{ answer.order }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

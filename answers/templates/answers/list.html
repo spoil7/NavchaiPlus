@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Відповіді{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">
+                <i class="bi bi-chat-square-text"></i>
+                Відповіді
+            </h2>
+
+            <p class="text-muted mb-0">
+                Список усіх відповідей системи
+            </p>
+        </div>
+
+        <a href="{% url 'answers:create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i>
+            Додати відповідь
+        </a>
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+                            <th width="70">ID</th>
+                            <th>Питання</th>
+                            <th>Відповідь</th>
+                            <th width="120">Правильна</th>
+                            <th width="90">Порядок</th>
+                            <th width="180" class="text-center">Дії</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for answer in answers %}
+
+                        <tr>
+
+                            <td>{{ answer.id }}</td>
+
+                            <td>{{ answer.question }}</td>
+
+                            <td>{{ answer.text }}</td>
+
+                            <td>
+
+                                {% if answer.is_correct %}
+                                    <span class="badge bg-success">
+                                        ✔ Так
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary">
+                                        ✖ Ні
+                                    </span>
+                                {% endif %}
+
+                            </td>
+
+                            <td>{{ answer.order }}</td>
+
+                            <td class="text-center">
+
+                                <a href="{% url 'answers:detail' answer.pk %}"
+                                   class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </a>
+
+                                <a href="{% url 'answers:edit' answer.pk %}"
+                                   class="btn btn-sm btn-outline-warning">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                </a>
+
+                                <a href="{% url 'answers:delete' answer.pk %}"
+                                   class="btn btn-sm btn-outline-danger">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td colspan="6" class="text-center py-5">
+
+                                <i class="bi bi-inbox fs-1 text-muted"></i>
+
+                                <p class="text-muted mt-3 mb-0">
+
+                                    Поки що немає жодної відповіді.
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
