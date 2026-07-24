@@ -16,3 +16,62 @@
 @import url("components/empty.css");
 
 @import url("dashboard.css");
+/* ===== Sidebar Groups ===== */
+
+.menu-group{
+    margin-bottom:10px;
+}
+
+.menu-group-toggle{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:none;
+    border:none;
+    color:inherit;
+
+    padding:12px 16px;
+
+    cursor:pointer;
+    border-radius:12px;
+
+    transition:.25s;
+}
+
+.menu-group-toggle:hover{
+    background:#f4f6fa;
+}
+
+.menu-group-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.menu-group-left i{
+    font-size:18px;
+}
+
+.menu-arrow{
+    transition:.3s;
+    font-size:14px;
+}
+
+.menu-group.open .menu-arrow{
+    transform:rotate(180deg);
+}
+
+.menu-group-content{
+    display:none;
+    padding-top:6px;
+}
+
+.menu-group.open .menu-group-content{
+    display:block;
+}
+
+.submenu-item{
+    padding-left:48px;
+}
